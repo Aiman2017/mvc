@@ -1,53 +1,72 @@
 <?php
 
-class Model
+Trait Model
 {
     use Database;
-    protected $table = 'tb_name';
-    protected $limit = 10;
-    protected $offset = 0;
 
-    //return multiple row database
-    public function where($data, $data_not = [])
+    protected $table = 'dbname';
+
+    public function findAll()
     {
-        $keys = array_keys($data);
-        $keys_not = array_keys($data_not);
-        $query = trim(
-            'SELECT * FROM ' . $this->table . ' WHERE ' . setEqualForID($keys, ' = :') . setEqualForID($keys_not, ' != :') ,
-            ' && ')
-            .' limit ' . $this->limit . ' offset ' . $this->offset;
-        $data = array_merge( $data, $data_not);
-
-        return $this->query($query,$data);
+        $query = 'SELECT * FROM ' .$this->table;
+        return $this->query($query);
     }
-
-    //return one row database
-    public function first($data, $data_not = [])
+    //get all the row on our database
+    public function where($keys, $not_key = [])
     {
-
-    }
-
-    //insert into database
-    public function insert($data)
-    {
-        $keys = array_keys($data);
-        $query = "INSERT INTO $this->table (".implode(",", $keys). ") VALUES (:" .implode(",:", $keys) .")";
-        $this->query($query, $data);
+        $query = 'SELECT * FROM ' . $this->table . ' WHERE ';
+        $query .= trim(getKeysFromData($keys, ' = :') . getKeysFromData($not_key, ' = :'), ' && ');
+        show($keys);
+        if ($this->query($query, $keys)) {
+            return $this->query($query, $keys);
+        } else {
+            echo 'This person  is not in our database';
+        }
         return false;
     }
 
-    //update into database
+    //get one  row on our database
+    public function first($keys)
+    {
+        $query = 'SELECT * FROM ' . $this->table . ' WHERE ';
+        $query .= trim(getKeysFromData($keys, ' = :'), ' && ');
+
+        if ($this->query($query, $keys)) {
+            return $this->query($query, $keys)[0];
+        } else {
+            echo 'This person is not in our database';
+        }
+        return false;
+    }
+
+    public function insert($keys)
+    {
+            $data = array_keys($keys);
+                $query = 'INSERT INTO ' . $this->table . ' ('  . implode(",", $data) . ') VALUES (:' . implode(",:", $data) .')' ;
+                $this->query($query, $keys);
+
+         return false;
+    }
+
     public function update($id, $data, $id_column = 'id')
     {
 
+        $query = ' UPDATE ' . $this->table . ' SET ';
+        $query .= trim(setEqualForIDS($data, ' = :'), ', ') .  'WHERE ' . $id_column . ' = :'  . $id_column;
+        $data[$id_column] = $id;
+        if ($id) {
+            $this->query($query, $data );
+            echo 'The user was updated';
+        }
     }
 
-    //delete from database
     public function delete($id, $id_column = 'id')
     {
-        $data[$id_column] = $id; // id => 6
-        $query = 'DELETE FROM ' . $this->table . ' WHERE ' . $id_column . '=:' . $id_column ;
-
-        self::query($query, $data);
+        if (!empty($id)) {
+            $query = 'DELETE FROM ' . $this->table . ' WHERE ' . $id_column . ' = :' . $id_column;
+            $this->query($query, $id);
+            echo 'The user has been deleted from our database';
+        }
+        return false;
     }
 }

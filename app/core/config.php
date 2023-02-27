@@ -1,20 +1,13 @@
 <?php
-const DEBUG = 1;
 
-if ($_SERVER['SERVER_NAME'] === 'localhost') {
-    define('DBSERVER', 'mvc=');
-    define('DBNAME', 'mvc_db');
-    define('USER', 'root');
-    define('PASSWORD', '');
-    define("OPTIONS", [PDO::ERRMODE_EXCEPTION => PDO::ATTR_ERRMODE]);
+define('SERVER_NAME', $_SERVER['SERVER_NAME']);
+const DEBUG = 0;
+if (SERVER_NAME =='localhost') {
 
-    define("ROOT", 'http://localhost/mvc/public/assets/');
+	define('DBNAME', 'mvc');
+	define('USER', 'root' );
+	define('PASSWORD','' );
 
-} else {
-    define('DBSERVER', 'mysql:hostname=mvc');
-    define('DBNAME', 'mvc_db');
-    define('USER', 'root');
-    define('PASSWORD', '');
+}else {
 
-    define("ROOT", 'https://www.mywebsite.com/assets/');
 }

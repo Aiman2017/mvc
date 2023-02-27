@@ -5,11 +5,9 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title><?=$err?></title>
+    <title><?= $error?></title>
 </head>
 <body>
-
-<h1>Page  not found <?=$error?></h1>
-
+<h1>The page is not found <?= $error?></h1>
 </body>
 </html>

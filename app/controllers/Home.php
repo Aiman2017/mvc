@@ -1,13 +1,23 @@
 <?php
 
-class Home extends Controller
+class Home
 {
+    use Controller, Model;
     public function index()
     {
-        $model = new Model();
-        $arr['name'] = 'Ahmed';
-        $model->delete(2);
-        $data['title'] = 'HOME';
-        $this->view('home',$data);
+        $arr['name'] = 'Aiman';
+        $arr['family'] = 'Al-Raidii';
+        $this->insert($arr);
+
+        show($this->findAll());
+            foreach ($this->findAll() as  $key => $value) {
+                if ($value['name'] === $arr['name'] && $value['family'] === $arr['family'] ) {
+                   echo 'this user is in our database';
+                }
+        }
+
+        $data['title'] = 'MVC';
+        $this->view('home', $data);
     }
+
 }

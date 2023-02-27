@@ -5,11 +5,24 @@ function show($stuff) {
     echo '</pre>';
 }
 
-function setEqualForID($keys, $sign): string // =: or !=:
+//get the keys from data
+function getKeysFromData($keys, $sign = '')
 {
     $query = '';
-    foreach ($keys as $key) {
-        $query .= $key  . $sign .  $key . ' && ';
+    $data = array_keys($keys);
+    foreach ($data as $key ) {
+        $query .= $key . $sign . $key . ' && ';
+    }
+    return $query;
+}
+
+//get the keys from data
+function setEqualForIDS($keys, $sign = '')
+{
+    $query = '';
+    $data = array_keys($keys);
+    foreach ($data as $key ) {
+        $query .= $key . $sign . $key . ', ';
     }
     return $query;
 }

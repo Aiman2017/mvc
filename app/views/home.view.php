@@ -8,7 +8,6 @@
     <title><?= $title?></title>
 </head>
 <body>
-    <h1>Hello from MVC <?= $title?></h1>
-    <img style="width: 100px" src="<?=ROOT?>images/image.jpg" alt="">
+    <h1>Hello from home <?= $title?></h1>
 </body>
 </html>

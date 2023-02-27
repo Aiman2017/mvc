@@ -1,6 +1,6 @@
 <?php
 
-class Controller
+trait Controller
 {
 
     public function view($view, $data = [])
@@ -9,10 +9,11 @@ class Controller
         $fileName = '../app/views/' . $view . '.view.php';
         if (file_exists($fileName)) {
             require_once $fileName;
-        }else {
+        } else {
             if (DEBUG) {
-                echo '<h1>we cant found the file of view name ' . $view . '</h1>';
+                echo '<h1>we cant found this ' . $view . '</h1>';
             }
+
         }
     }
 }

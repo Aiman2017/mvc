@@ -1,10 +1,11 @@
 <?php
 
-class Products extends Controller
+class Products
 {
+    use Controller;
     public function index()
     {
-        $data['product'] = 'product';
+        $data['product'] = 'Product';
         $this->view('product', $data);
     }
 }

@@ -4,13 +4,12 @@ class RequestURL
 {
     protected static function setURL()
     {
-        // here we are getting the url
-        return explode('/', trim($_GET['url'] ?? 'home', '/'), '3');
+        $url = $_GET['url'] ?? 'home';
+        return explode('/', trim( $url, '/'));
     }
 
     public static function getURL()
     {
         return self::setURL();
     }
-
 }

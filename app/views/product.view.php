@@ -8,8 +8,6 @@
     <title><?= $product?>></title>
 </head>
 <body>
-
-<h1>Hello from MVC <?= $product?></h1>
-
+    <h1>Hello from <?= $product?></h1>
 </body>
 </html>
