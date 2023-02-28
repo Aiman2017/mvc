@@ -17,7 +17,7 @@ class Home
 
                }else {
                    $this->insert($arr);
-                   break;
+
                }
            }
        }
